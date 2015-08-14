@@ -1,0 +1,13 @@
+#main {
+	width: 100%;
+	text-align: center;
+	margin-top: 60px;
+}
+
+.box {
+	height: 200px;
+	width: 200px;
+	border: 1px solid #aaa;
+	display: inline-block;
+	margin: 3px;
+}
