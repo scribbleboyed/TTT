@@ -1,13 +1,262 @@
+body {
+	background-color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#resetButton {
+	padding: 5px 100px;
+	width: 150px;
+	height: 30px;
+	font-size: 10px;
+	color: #fff;
+	background-color: #993333;
+	border: 1px solid #000;
+	border-radius: 0px;
+	box-shadow: 1px 3px 10px #eee;
+	text-decoration: none;
+}
+
+#resetButton:hover {
+	background-color: #fff;
+	color: #993333;
+}
+
+#resultText {
+	margin: 0 auto;
+	margin-bottom: -160px;
+	width: 500px;
+	font-size: 14px;
+	font-weight: bolder;
+	color: #bbb;
+	opacity: 0;
+}
+
 #main {
 	width: 100%;
 	text-align: center;
-	margin-top: 60px;
+	margin-top: 200px;
+	display: inline-block;
+}
+
+#board {
+	background: -webkit-linear-gradient(top, #ddd, #fff); /* For Safari 5.1 to 6.0 */
+	  background: -o-linear-gradient(top, #ddd, #fff); /* For Opera 11.1 to 12.0 */
+	  background: -moz-linear-gradient(top, #ddd, #fff); /* For Firefox 3.6 to 15 */
+	  background: linear-gradient(top, #ddd, #fff); /* Standard syntax */
+	padding: 20px;
+}
+
+#view {
+	margin-bottom: -30px;
+}
+
+#player-turn {
+	width: 100%;
+	display: inline-block;
+	margin: 0 auto;
+	padding: 0;
+	opacity: 0.5;
+}
+
+#ryu-turn {
+	margin: 0 auto;
+	padding: 0;
+	display: inline-block;
+	width: 100px;
+	height: 5px;
+	background: #006E93;
+	margin-right: 120px;
+}
+
+#ken-turn {
+	margin: 0 auto;
+	display: inline-block;
+	width: 100px;
+	height: 5px;
+	background: #993333;
+}
+
+#title-top {
+	text-align: left;
+	margin-top: -46px;
+	color: #ddd;
+	font-size: 20px;
+}
+
+#title-bottom {
+	text-align: left;
+	color: #fff;
+	size: 100px;
+	font-weight: bolder;
+}
+
+#buttons {
+	margin-top: 20px;
+	width: 500px;
+	display: inline-block;
 }
 
 .box {
-	height: 200px;
-	width: 200px;
-	border: 1px solid #aaa;
+	height: 100px;
+	width: 100px;
+	border: 1px solid #000;
 	display: inline-block;
-	margin: 3px;
+	margin: 5px;
+	box-shadow: 1px 3px 10px #aaa;
+	background-color: #fff;
+}
+
+.box-hover {
+	background-color: #ddd;
+}
+
+
+
+#ryu {
+	display:inline-block;
+	background-position: left 0px;
+	width: 150px;
+	height: 200px;
+	background-image: url('../images/ryu.gif');
+}
+
+#ken {
+	display: inline-block;
+	background-position: left 0px;
+	width: 150px;
+	height: 200px;
+	background-image: url('../images/ken.gif');
+}
+
+/* Ryu Moves */
+
+.ryuIdle {
+	-webkit-animation: ryuIdle steps(4) 0.5s infinite;
+}
+
+@-webkit-keyframes ryuIdle {
+	from {background-position: 0px 0px;}
+	to {background-position: -600px 0px;}
+}
+
+.ryuMove1 {
+	-webkit-animation: ryuHadouken steps(8) 0.8s;
+}
+
+@-webkit-keyframes ryuHadouken {
+	from {background-position: 0px -200px;}
+	to {background-position: -1200px -200px;}
+}
+
+.ryuMove2 {
+	-webkit-animation: ryuUppercut steps(7) 0.8s;
+}
+
+@-webkit-keyframes ryuUppercut {
+	from {background-position: 0px -400px;}
+	to {background-position: -1050px -400px;}
+}
+
+.ryuMove3 {
+	-webkit-animation: ryuHurricane steps(8) 0.8s;
+}
+
+@-webkit-keyframes ryuHurricane {
+	from {background-position: 0px -600px;}
+	to {background-position: -1200px -600px;}
+}
+
+.ryuHit {
+	-webkit-animation: ryuHit steps(3) 1s infinite;
+}
+
+@-webkit-keyframes ryuHit {
+	from {background-position: 0px -800px;}
+	to {background-position: -450px -800px;}
+}
+
+.ryuWin {
+	-webkit-animation: ryuWin steps(4) 1s;
+}
+
+@-webkit-keyframes ryuWin {
+	from {background-position: -600px 0px;}
+	to {background-position: -1200px 0px;}
+}
+
+.ryuWinEnd {
+	-webkit-animation: ryuWinEnd steps(3) 1s infinite;
+}
+
+@-webkit-keyframes ryuWinEnd {
+	from {background-position: -750px 0px;}
+	to {background-position: -1200px 0px;}
+}
+
+/* Ken Moves */
+
+
+.kenIdle {
+	-webkit-animation: kenIdle steps(4) 0.5s infinite;
+}
+
+@-webkit-keyframes kenIdle {
+	from {background-position: -1050px 0px;}
+	to {background-position: -450px 0px;}
+}
+
+.kenMove1 {
+	-webkit-animation: kenHadouken steps(8) 0.7s infinite;
+}
+
+@-webkit-keyframes kenHadouken {
+	from {background-position: -1050px -200px;}
+	to {background-position: 150px -200px;}
+}
+
+.kenMove2 {
+	-webkit-animation: kenUppercut steps(6) 0.7s infinite;
+}
+
+@-webkit-keyframes kenUppercut {
+	from {background-position: -1050px -400px;}
+	to {background-position: -150px -400px;}
+}
+
+.kenMove3 {
+	-webkit-animation: kenHurricane steps(8) 0.7s infinite;
+}
+
+@-webkit-keyframes kenHurricane {
+	from {background-position: -1200px -600px;}
+	to {background-position: 0px -600px;}
+}
+
+.kenHit {
+	-webkit-animation: kenHit steps(3) 1s infinite;
+}
+
+@-webkit-keyframes kenHit {
+	from {background-position: -1050px -800px;}
+	to {background-position: -600px -800px;}
+}
+
+.kenWin {
+	-webkit-animation: kenWin steps(4) 0.5s infinite;
+}
+
+@-webkit-keyframes kenWin {
+	from {background-position: -750px 0px;}
+	to {background-position: -150px 0px;}
+}
+
+.kenWinEnd {
+	-webkit-animation: kenWinEnd steps(1) 1s infinite;
+}
+
+@-webkit-keyframes kenWinEnd {
+	from {background-position: -150px 0px;}
+	to {background-position: -150px 0px;}
 }
