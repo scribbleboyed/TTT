@@ -7,6 +7,15 @@ var playerOneTurn = true;
 
 var gameOver = false;
 
+var maxTime = 15;
+var ryuWins = 0;
+
+var ryuWinText = "";
+var kenWinText = "";
+
+var ryuWinTextField = document.querySelector('#ryuWins');
+var kenWinTextField = document.querySelector('#kenWins');
+
 var ryuTurnIndicator = document.querySelector('#ryu-turn');
 var kenTurnIndicator = document.querySelector('#ken-turn');
 
@@ -22,7 +31,11 @@ resetButton.addEventListener('click', function() {
 	getBoard();
 });
 
+var timeElapsed = maxTime;
+var timer = document.querySelector('#timer');
+
 var clearBoard = function() {
+	resetTimer();
 	playerOneTurn = true;
 	gameOver = false;
 	resultText.innerHTML = "KO";
@@ -62,12 +75,8 @@ var getBoard = function() {
 			box.addEventListener('click', function() {
 				if (playerOneTurn) {
 					moveP1(this.id);
-					ryuTurnIndicator.style.opacity = 0;
-					kenTurnIndicator.style.opacity = 1;
 				} else {
 					moveP2(this.id);
-					ryuTurnIndicator.style.opacity = 1;
-					kenTurnIndicator.style.opacity = 0;
 				}
 			});
 
@@ -86,11 +95,62 @@ var getBoard = function() {
 	}
 };
 
+var incrementTime = function() {
+	if (timeElapsed > 0) {
+		timeElapsed--;
+	};
+	timer.innerHTML = timeElapsed;
+	if (timeElapsed <= 5) {
+		timer.style.color = "red"
+	}
+	if (timeElapsed <= 0) {
+		var rowRemaining = "";
+		var colRemaining = "";
+		for (var i=0; i<boardArray.length; i++) {
+			for (var j=0; j<boardArray[i].length; j++) {
+				if (boardArray[i][j] === null) {
+					rowRemaining += i;
+					colRemaining += j;
+				}
+			}
+		}
+			var i = Math.floor(Math.random() * rowRemaining.length);
+			var j = Math.floor(Math.random() * colRemaining.length);
+			var randomBox = "box" + rowRemaining[i] + colRemaining[j];
+		if (playerOneTurn) {
+			moveP1(randomBox)
+		} else {
+			moveP2(randomBox)
+		}
+	}
+}
+
+function startTimer() {
+	setInterval(incrementTime, 1000);
+}
+
+function stopTimer() {
+	clearInterval(incrementTime);
+	timeElapsed = 15;
+	timer.innerHTML = timeElapsed;
+}
+
+function resetTimer() {	
+	timeElapsed = maxTime;
+	timer.innerHTML = timeElapsed;
+	timer.style.color = "#000";
+}
+
 var moveP1 = function(id) {
 	var boxSelected = id;
 	var box = document.querySelector('#' + boxSelected);
 
 	if ((gameOver === false) && (boardArray[boxSelected[3]][boxSelected[4]] === null)) { // don't allow player to select same box
+
+		resetTimer();
+
+		ryuTurnIndicator.style.opacity = 0;
+		kenTurnIndicator.style.opacity = 1;
 
 		var number = Math.floor(Math.random() * 3) + 1;
 		var move = "ryuMove" + number;
@@ -112,6 +172,11 @@ var moveP2 = function(id) {
 	var box = document.querySelector('#' + boxSelected);
 
 	if ((gameOver === false) && (boardArray[boxSelected[3]][boxSelected[4]] === null)) { // don't allow player to select same box
+
+		resetTimer();
+
+		ryuTurnIndicator.style.opacity = 1;
+		kenTurnIndicator.style.opacity = 0;
 
 		var number = Math.floor(Math.random() * 3) + 1;
 		var move = "kenMove" + number;
@@ -143,11 +208,16 @@ var checkWinner = function() {
 
 	for (var x=0; x<winArray.length; x++) {
 		if ((!gameOver) && (winArray[x][0] != null) && (winArray[x][0] === winArray[x][1]) && (winArray[x][1] === winArray[x][2])) {
+			stopTimer();
+			clearInterval(incrementTime);
 			if (!playerOneTurn){
 				resultText.innerHTML = "R Y U &nbsp; W I N S";
 				resultText.style.opacity = 1;
 				ryu.className = 'ryuWin';
 				setTimeout(function() { ryu.className = 'ryuWinEnd';}, 770);
+				ryuWins++;
+				ryuWinText += "&#9733";
+				ryuWinTextField.innerHTML = ryuWinText;
 				gameOver = true;
 			} else {
 				resultText.innerHTML = "K E N &nbsp; W I N S";
@@ -155,6 +225,9 @@ var checkWinner = function() {
 				ken.className = 'kenWin';
 				setTimeout(function() { ken.className = 'kenWinEnd';}, 800);
 				gameOver = true;
+				kenWins++;
+				kenWinText += "&#9733";
+				kenWinTextField.innerHTML = kenWinText;
 			}
 		}
 	}
@@ -179,3 +252,5 @@ var checkWinner = function() {
 }
 
 getBoard();
+
+startTimer();
